@@ -1,0 +1,67 @@
+﻿@model Persona5API.Models.Skills
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Skills</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="LevelLearned" class="control-label"></label>
+                <input asp-for="LevelLearned" class="form-control" />
+                <span asp-validation-for="LevelLearned" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SkillName" class="control-label"></label>
+                <input asp-for="SkillName" class="form-control" />
+                <span asp-validation-for="SkillName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Effect" class="control-label"></label>
+                <input asp-for="Effect" class="form-control" />
+                <span asp-validation-for="Effect" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Power" class="control-label"></label>
+                <input asp-for="Power" class="form-control" />
+                <span asp-validation-for="Power" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostAmount" class="control-label"></label>
+                <input asp-for="CostAmount" class="form-control" />
+                <span asp-validation-for="CostAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ElementName" class="control-label"></label>
+                <input asp-for="ElementName" class="form-control" />
+                <span asp-validation-for="ElementName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostId" class="control-label"></label>
+                <select asp-for="CostId" class="form-control" asp-items="ViewBag.CostId"></select>
+                <span asp-validation-for="CostId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ElementId" class="control-label"></label>
+                <select asp-for="ElementId" class="form-control" asp-items="ViewBag.ElementId"></select>
+                <span asp-validation-for="ElementId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

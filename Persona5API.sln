@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persona5API", "Persona5API\Persona5API.csproj", "{D7C91107-0BE2-44D5-8256-223095B352D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7C91107-0BE2-44D5-8256-223095B352D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7C91107-0BE2-44D5-8256-223095B352D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7C91107-0BE2-44D5-8256-223095B352D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7C91107-0BE2-44D5-8256-223095B352D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB6404DE-8447-4DCE-8783-E36EFD5242ED}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,72 @@
+﻿@model Persona5API.ViewModels.PersonaFormViewModels
+
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Persona</h4>
+<hr />
+<div class="row persona-form">
+	<form asp-action="Create" method="post" enctype="multipart/form-data">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="form-group">
+			<label asp-for="Name" class="control-label"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Level" class="control-label"></label>
+			<input asp-for="Level" class="form-control" />
+			<span asp-validation-for="Level" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Arcana" class="control-label"></label>
+			<input asp-for="Arcana" class="form-control" />
+			<span asp-validation-for="Arcana" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Stats" class="control-label"></label>
+			<div class="form-row">
+				<div class="col">
+					<input asp-for="Stats.Strength" placeholder="Strength" class="form-control" />
+				</div>
+				<div class="col">
+					<input asp-for="Stats.Magic" placeholder="Magic" class="form-control" />
+				</div>
+				<div class="col">
+					<input asp-for="Stats.Endurance" placeholder="Endurance" class="form-control" />
+				</div>
+				<div class="col">
+					<input asp-for="Stats.Agility" placeholder="Agility" class="form-control" />
+				</div>
+				<div class="col">
+					<input asp-for="Stats.Luck" placeholder="Luck" class="form-control" />
+				</div>
+
+				<span asp-validation-for="Stats" class="text-danger"></span>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			@*@for (var i = 0; i < Model.SelectSkillsId.Count; i++)
+				{
+					<input type="hidden" asp-for="SelectSkillsId[i]" />
+					<select asp-for="SelectSkillsId[i]" asp-items="@(new SelectList(Model.SkillsList, "Value", "Text"))" multiple></select>
+				}*@
+			<label>Skills</label>
+			@Html.ListBoxFor(m => m.SelectSkillsId, new SelectList(Model.SkillsList, "Value", "Text"),
+				new { id = "SkillsList", @class = "selectSkills show-tick form-control" })
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Create" class="btn btn-primary" />
+		</div>
+	</form>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+

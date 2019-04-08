@@ -1,0 +1,59 @@
+﻿@model Persona5API.ViewModels.PersonaFormViewModels
+
+@{
+	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Persona</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Edit">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Level" class="control-label"></label>
+				<input asp-for="Level" class="form-control" />
+				<span asp-validation-for="Level" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Arcana" class="control-label"></label>
+				<input asp-for="Arcana" class="form-control" />
+				<span asp-validation-for="Arcana" class="text-danger"></span>
+			</div>
+			@*<div class="form-group">
+				<label asp-for="SkillsJson" class="control-label"></label>
+				<input asp-for="SkillsJson" class="form-control" />
+				<span asp-validation-for="SkillsJson" class="text-danger"></span>
+			</div>*@
+
+			<div class="form-group">
+				<label>Skills</label>
+				<div class="form-row">
+					@for (var i = 0; i < Model.SelectSkillsId.Count; i++)
+					{
+						<select asp-for="SelectSkillsId" asp-items="@(new SelectList(Model.SkillsList, "Value", "Text"))" class="col-6"></select>
+					}
+				</div>
+				
+				
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
