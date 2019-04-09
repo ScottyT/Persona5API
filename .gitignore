@@ -43,6 +43,7 @@ dlldata.c
 # DNX
 project.lock.json
 project.fragment.lock.json
+/Persona5API/appsettings.json
 artifacts/
 
 *_i.c
