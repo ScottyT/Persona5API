@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persona5API.Models
@@ -23,6 +24,38 @@ namespace Persona5API.Models
                     Skills.Clear();
                 else
                     Skills = JsonConvert.DeserializeObject<List<Skills>>(value);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Resists")]
+        public List<Elements> ResistElements { get; set; } = new List<Elements>();
+        [JsonIgnore]
+        public string ResistJson
+        {
+            get { return JsonConvert.SerializeObject(ResistElements); }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    ResistElements.Clear();
+                else
+                    ResistElements = JsonConvert.DeserializeObject<List<Elements>>(value);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Weak")]
+        public List<Elements> WeakElements { get; set; } = new List<Elements>();
+        [JsonIgnore]
+        public string WeakJson
+        {
+            get { return JsonConvert.SerializeObject(WeakElements); }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    WeakElements.Clear();
+                else
+                    WeakElements = JsonConvert.DeserializeObject<List<Elements>>(value);
             }
         }
     }

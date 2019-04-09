@@ -18,5 +18,13 @@ namespace Persona5API.ViewModels
         [Display(Name = "Skills")]
         public List<int> SelectSkillsId { get; set; }
         public IEnumerable<SelectListItem> SkillsList { get; set; }
+
+        [Display(Name = "Resist")]
+        public List<int> ResistElementsId { get; set; }
+        public IEnumerable<SelectListItem> ResistList { get; set; }
+
+        [Display(Name = "Weak")]
+        public List<int> WeakElementsId { get; set; }
+        public IEnumerable<SelectListItem> WeakList { get; set; }
     }
 }

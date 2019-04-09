@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Persona5API.Models
 {
-    [JsonObject(IsReference = true)]
     public class Skills
     {
         public int Id { get; set; }

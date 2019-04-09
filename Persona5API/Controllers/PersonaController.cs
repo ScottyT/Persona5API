@@ -42,8 +42,11 @@ namespace Persona5Api.Controllers
             {
                 return NotFound();
             }
-
-            return View(persona);
+            var viewModel = new PersonaViewModel()
+            {
+                Persona = persona
+            };
+            return View(viewModel);
         }
 
         // GET: Persona/Create
@@ -52,11 +55,16 @@ namespace Persona5Api.Controllers
             var viewModel = new PersonaFormViewModels
             {
                 SelectSkillsId = new List<int>(),
-                SkillsList = await GetSkills()
+                SkillsList = await GetSkills(),
+                ResistElementsId = new List<int>(),
+                ResistList = await GetElements(),
+                WeakElementsId = new List<int>(),
+                WeakList = await GetElements()
             };
             try
             {
                 this.ViewBag.SkillsList = this.GetSkills();
+                this.ViewBag.ResistList = this.GetElements();
             }
             catch (Exception ex)
             {
@@ -70,7 +78,7 @@ namespace Persona5Api.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PersonaFormViewModels viewModel)
+        public async Task<ActionResult> Create(PersonaFormViewModels viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -78,12 +86,15 @@ namespace Persona5Api.Controllers
                 return View("Create", viewModel);
             }
             var skills = _context.PersonaSkills.Include(s => s.Element).Include(c => c.Cost).ToList();
+            var elements = _context.PersonaElements.ToList();
             var persona = new Persona
             {
                 Name = viewModel.Name,
                 Level = viewModel.Level,
                 Arcana = viewModel.Arcana,
                 Stats = viewModel.Stats,
+                ResistElements = elements.Where(e => viewModel.ResistElementsId.Contains(e.Id)).Select(x => x).ToList(),
+                WeakElements = elements.Where(e => viewModel.WeakElementsId.Contains(e.Id)).Select(x => x).ToList(),
                 Skills = skills.Where(s => viewModel.SelectSkillsId.Contains(s.Id)).Select(x => x).ToList()
             };
             _context.Personas.Add(persona);
@@ -171,6 +182,23 @@ namespace Persona5Api.Controllers
             _context.Personas.Remove(persona);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GetElements()
+        {
+            List<SelectListItem> elements = await _context.PersonaElements.AsNoTracking()
+                .Select(e => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = e.Name
+                }).ToListAsync();
+            var elementTip = new SelectListItem()
+            {
+                Value = null,
+                Text = "--- Select Element ---"
+            };
+            elements.Insert(0, elementTip);
+            return new SelectList(elements, "Value", "Text");
         }
 
         private async Task<IEnumerable<SelectListItem>> GetSkills()
