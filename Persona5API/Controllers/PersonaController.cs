@@ -12,7 +12,6 @@ using Persona5API.ViewModels;
 
 namespace Persona5Api.Controllers
 {
-    [Authorize]
     public class PersonaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -37,6 +36,7 @@ namespace Persona5Api.Controllers
             }
 
             var persona = await _context.Personas
+                .Include(p => p.Stats)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (persona == null)
             {
@@ -50,6 +50,7 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona/Create
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             var viewModel = new PersonaFormViewModels
@@ -78,6 +79,7 @@ namespace Persona5Api.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(PersonaFormViewModels viewModel)
         {
             if (!ModelState.IsValid)
@@ -103,6 +105,7 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             var skills = await GetSkills();
@@ -121,12 +124,7 @@ namespace Persona5Api.Controllers
             {
                 return NotFound();
             }
-
-            //var persona = await _context.Personas.FindAsync(id);
-            //if (persona == null)
-            //{
-            //    return NotFound();
-            //}
+           
             return View(viewModel);
         }
 
@@ -135,6 +133,7 @@ namespace Persona5Api.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(PersonaFormViewModels viewModel)
         {
             if (!ModelState.IsValid)
@@ -156,6 +155,7 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -176,6 +176,7 @@ namespace Persona5Api.Controllers
         // POST: Persona/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var persona = await _context.Personas.FindAsync(id);
