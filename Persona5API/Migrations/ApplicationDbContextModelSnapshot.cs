@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persona5API.Data;
 
-namespace Persona5API.Data.Migrations
+namespace Persona5API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190408155032_FieldAdded")]
-    partial class FieldAdded
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,13 +207,15 @@ namespace Persona5API.Data.Migrations
 
                     b.Property<int>("Level");
 
-                    b.Property<string>("LevelLearned");
-
                     b.Property<string>("Name");
+
+                    b.Property<string>("ResistJson");
 
                     b.Property<string>("SkillsJson");
 
                     b.Property<int?>("StatsId");
+
+                    b.Property<string>("WeakJson");
 
                     b.HasKey("Id");
 
@@ -290,8 +290,6 @@ namespace Persona5API.Data.Migrations
 
                     b.HasIndex("ElementId");
 
-                    b.HasIndex("PersonaId");
-
                     b.ToTable("PersonaSkills");
                 });
 
@@ -356,10 +354,6 @@ namespace Persona5API.Data.Migrations
                     b.HasOne("Persona5API.Models.Elements", "Element")
                         .WithMany()
                         .HasForeignKey("ElementId");
-
-                    b.HasOne("Persona5API.Models.Persona", "Personas")
-                        .WithMany("Skills")
-                        .HasForeignKey("PersonaId");
                 });
 #pragma warning restore 612, 618
         }

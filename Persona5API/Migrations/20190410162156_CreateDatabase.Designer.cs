@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persona5API.Data;
 
-namespace Persona5API.Data.Migrations
+namespace Persona5API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190408160605_RemovedField")]
-    partial class RemovedField
+    [Migration("20190410162156_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -209,13 +209,15 @@ namespace Persona5API.Data.Migrations
 
                     b.Property<int>("Level");
 
-                    b.Property<string>("LevelLearned");
-
                     b.Property<string>("Name");
+
+                    b.Property<string>("ResistJson");
 
                     b.Property<string>("SkillsJson");
 
                     b.Property<int?>("StatsId");
+
+                    b.Property<string>("WeakJson");
 
                     b.HasKey("Id");
 
@@ -290,8 +292,6 @@ namespace Persona5API.Data.Migrations
 
                     b.HasIndex("ElementId");
 
-                    b.HasIndex("PersonaId");
-
                     b.ToTable("PersonaSkills");
                 });
 
@@ -356,10 +356,6 @@ namespace Persona5API.Data.Migrations
                     b.HasOne("Persona5API.Models.Elements", "Element")
                         .WithMany()
                         .HasForeignKey("ElementId");
-
-                    b.HasOne("Persona5API.Models.Persona")
-                        .WithMany("Skills")
-                        .HasForeignKey("PersonaId");
                 });
 #pragma warning restore 612, 618
         }
