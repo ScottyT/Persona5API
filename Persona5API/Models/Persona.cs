@@ -13,6 +13,7 @@ namespace Persona5API.Models
         public int Level { get; set; }
         public string Arcana { get; set; }
         public PersonaStats Stats { get; set; }
+        public string Description { get; set; }
         [NotMapped]
         public List<Skills> Skills { get; set; } = new List<Skills>();
         [JsonIgnore]

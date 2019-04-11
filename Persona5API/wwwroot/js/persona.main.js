@@ -20,7 +20,7 @@ persona.main = (function ($) {
 			$('#SkillsList').attr('multiple', true);
 			$('#SkillsList').attr('data-selected-text-format', 'count');
 
-			$('.selectSkills').selectpicker({
+			$('.selectSkills, .selectElements').selectpicker({
 				width: 'auto',
 				title: '--- Choose Multiple Skills ---',
 				size: 6,

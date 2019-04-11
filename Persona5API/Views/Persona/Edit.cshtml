@@ -29,22 +29,35 @@
 				<input asp-for="Arcana" class="form-control" />
 				<span asp-validation-for="Arcana" class="text-danger"></span>
 			</div>
-			@*<div class="form-group">
-				<label asp-for="SkillsJson" class="control-label"></label>
-				<input asp-for="SkillsJson" class="form-control" />
-				<span asp-validation-for="SkillsJson" class="text-danger"></span>
-			</div>*@
-
+			<div class="form-group">
+				<label asp-for="Description" class="control-label"></label>
+				<textarea asp-for="Description" class="form-control"></textarea>
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<label asp-for="ResistElementsId"></label>
+					@Html.ListBoxFor(m => m.ResistElementsId, new SelectList(Model.ResistList, "Value", "Text"),
+					new { id = "ResistList", @class = "selectElements show-tick form-control" })
+				</div>
+				<div class="col">
+					<label asp-for="WeakElementsId"></label>
+					@Html.ListBoxFor(m => m.WeakElementsId, new SelectList(Model.WeakList, "Value", "Text"),
+					new { id = "WeakList", @class = "selectElements show-tick form-control" })
+				</div>
+			</div>
 			<div class="form-group">
 				<label>Skills</label>
 				<div class="form-row">
-					@for (var i = 0; i < Model.SelectSkillsId.Count; i++)
-					{
-						<select asp-for="SelectSkillsId" asp-items="@(new SelectList(Model.SkillsList, "Value", "Text"))" class="col-6"></select>
-					}
+					@Html.ListBoxFor(m => m.SelectSkillsId, new SelectList(Model.SkillsList, "Value", "Text"),
+						new { id = "SkillsList", @class = "selectSkills show-tick form-control" })
+					@*@for (var i = 0; i < Model.SelectSkillsId.Count; i++)
+				{
+					<select asp-for="SelectSkillsId" asp-items="@(new SelectList(Model.SkillsList, "Value", "Text"))" class="col-6"></select>
+				}*@
 				</div>
-				
-				
+
+
 			</div>
 			<div class="form-group">
 				<input type="submit" value="Save" class="btn btn-primary" />

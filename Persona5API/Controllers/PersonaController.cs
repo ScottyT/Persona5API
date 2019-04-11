@@ -109,14 +109,18 @@ namespace Persona5Api.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             var skills = await GetSkills();
-            var persona = _context.Personas.Include(x => x.Skills).FirstOrDefault(p => p.Id == id);
+            var elements = await GetElements();
+            var persona = _context.Personas.FirstOrDefault(p => p.Id == id);
             var currentSkillsId = persona.Skills.Select(c => c.Id).ToList();
             var viewModel = new PersonaFormViewModels
             {
                 Id = persona.Id,
                 Name = persona.Name,
                 Arcana = persona.Arcana,
-                Level = persona.Level,               
+                Level = persona.Level,
+                Description = persona.Description,
+                ResistList = elements,
+                WeakList = elements,
                 SkillsList = skills,
                 SelectSkillsId = currentSkillsId
             };
@@ -141,6 +145,7 @@ namespace Persona5Api.Controllers
                 return View("Edit", viewModel);
             }
             var skills = _context.PersonaSkills.Include(s => s.Element).Include(c => c.Cost).ToList();
+            var elements = _context.PersonaElements.ToList();
             var persona = await _context.Personas.FirstOrDefaultAsync(p => p.Id == viewModel.Id);
             if (persona != null)
             {
@@ -148,6 +153,9 @@ namespace Persona5Api.Controllers
                 persona.Level = viewModel.Level;
                 persona.Arcana = viewModel.Arcana;
                 persona.Stats = viewModel.Stats;
+                persona.Description = viewModel.Description;
+                persona.ResistElements = elements.Where(e => viewModel.ResistElementsId.Contains(e.Id)).Select(e => e).ToList();
+                persona.WeakElements = elements.Where(e => viewModel.WeakElementsId.Contains(e.Id)).Select(e => e).ToList();
                 persona.Skills = skills.Where(s => viewModel.SelectSkillsId.Contains(s.Id)).Select(s => s).ToList();
             }
             await _context.SaveChangesAsync();
