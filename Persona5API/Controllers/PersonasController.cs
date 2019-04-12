@@ -40,6 +40,16 @@ namespace Persona5Api.Controllers
             return "value";
         }
 
+        //GET api/<controller>/random
+        [HttpGet("random", Name = "GetRandomPersona")]
+        public async Task<ActionResult<Persona>> GetRandomPersona()
+        {
+            var personas = await _ctx.Personas.Include(x => x.Stats).ToListAsync();
+            Random rand = new Random();
+            var persona = personas[rand.Next(personas.Count)];
+            return persona;
+        }
+
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]string value)

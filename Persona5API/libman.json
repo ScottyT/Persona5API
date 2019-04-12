@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "vue@2.6.10",
+      "destination": "wwwroot/lib/vue/",
+      "files": [
+        "vue.min.js",
+        "vue.runtime.min.js"
+      ]
+    },
+    {
+      "library": "axios@0.18.0",
+      "destination": "wwwroot/lib/axios/",
+      "files": [
+        "axios.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap-select@1.13.9",
+      "destination": "wwwroot/lib/bootstrap-select/",
+      "files": [
+        "js/bootstrap-select.js"
+      ]
+    }
+  ]
+}

@@ -12,6 +12,7 @@ persona.main = (function ($) {
 		init: function () {
 
 			this.skillSelectList();
+			this.randomPersonas();
 		},
 		skillSelectList: function () {
 			// Enable live search
@@ -26,6 +27,37 @@ persona.main = (function ($) {
 				size: 6,
 				iconBase: 'fa',
 				tickIcon: 'fa-check'
+			});
+		},
+
+		randomPersonas: function () {
+			new Vue({
+				el: ".random-persona",
+				data() {
+					return {
+						random: {},
+						loading: true,
+						errored: false
+					}
+				},
+				mounted: function () {
+					this.getRandom()
+				},
+				methods: {
+					getPersonas() {
+						axios.get("api/personas")
+							.then(response => { this.persona = response.data })
+					},
+					async getRandom() {
+						await axios.get("api/personas/random")
+							.then(response => { this.random = response.data })
+							
+							.finally(() => {
+								this.loading = false;
+
+							})
+					}
+				}				
 			});
 		}
 	};

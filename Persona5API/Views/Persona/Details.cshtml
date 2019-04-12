@@ -3,18 +3,9 @@
 @{
 	ViewData["Title"] = "Details";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	var weakElmArr = new List<string>();
-	var resistElmArr = new List<string>();
-	var weakElements = Model.Persona.WeakElements;
-	var resistElements = Model.Persona.ResistElements;
-	foreach(var weakElm in weakElements)
-	{
-		weakElmArr.Add(weakElm.Name);
-	}
-	foreach(var resistElm in resistElements)
-	{
-		resistElmArr.Add(resistElm.Name);
-	}
+	
+	var weakElements = Model.Persona.WeakElements.Select(x => x.Name).ToList();
+	var resistElements = Model.Persona.ResistElements.Select(x => x.Name).ToList();	
 }
 
 <h1>Details</h1>
@@ -33,11 +24,11 @@
 		</tr>
 		<tr>
 			<td>
-				@String.Join(", ", resistElmArr)
+				@String.Join(", ", resistElements)
 			</td>
 
 			<td>				
-				@String.Join(", ", weakElmArr)
+				@String.Join(", ", weakElements)
 			</td>
 
 		</tr>
