@@ -14,13 +14,13 @@
     <thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.Name)
+				@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Level)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Arcana)
+				@Html.ActionLink("Arcana", "Index", new { sortOrder = ViewBag.ArcanaSortParam })
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Stats.Strength)

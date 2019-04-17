@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persona5API.Models;
 using Persona5API.Data;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,9 +36,15 @@ namespace Persona5Api.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Persona>> Get(int id)
         {
-            return "value";
+            var persona = await _ctx.Personas.FindAsync(id);
+            if (persona == null)
+            {
+                return NotFound();
+            }
+            return persona;
         }
 
         //GET api/<controller>/random
