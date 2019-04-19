@@ -1,0 +1,66 @@
+﻿@page
+@model Persona5API.Pages.Personas.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Persona</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Persona.Id" />
+            <div class="form-group">
+                <label asp-for="Persona.Name" class="control-label"></label>
+                <input asp-for="Persona.Name" class="form-control" />
+                <span asp-validation-for="Persona.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Persona.Level" class="control-label"></label>
+                <input asp-for="Persona.Level" class="form-control" />
+                <span asp-validation-for="Persona.Level" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Persona.Arcana" class="control-label"></label>
+                <input asp-for="Persona.Arcana" class="form-control" />
+                <span asp-validation-for="Persona.Arcana" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Persona.Description" class="control-label"></label>
+                <input asp-for="Persona.Description" class="form-control" />
+                <span asp-validation-for="Persona.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Persona.SkillsJson" class="control-label"></label>
+                <input asp-for="Persona.SkillsJson" class="form-control" />
+                <span asp-validation-for="Persona.SkillsJson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Persona.ResistJson" class="control-label"></label>
+                <input asp-for="Persona.ResistJson" class="form-control" />
+                <span asp-validation-for="Persona.ResistJson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Persona.WeakJson" class="control-label"></label>
+                <input asp-for="Persona.WeakJson" class="form-control" />
+                <span asp-validation-for="Persona.WeakJson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

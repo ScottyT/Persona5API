@@ -1,0 +1,79 @@
+﻿@page
+@model Persona5API.Pages.Personas.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Level)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Arcana)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Stats.Strength)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Stats.Magic)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Stats.Endurance)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Stats.Agility)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Persona[0].Stats.Luck)
+			</th>
+			<th></th>
+		</tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Persona) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Level)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Arcana)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Stats.Strength)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Stats.Magic)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Stats.Endurance)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Stats.Agility)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Stats.Luck)
+			</td>
+			<td>
+				<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+				<a href="./personas/Details?id=@item.Id">Details</a> |
+				<a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+			</td>
+		</tr>
+}
+    </tbody>
+</table>
