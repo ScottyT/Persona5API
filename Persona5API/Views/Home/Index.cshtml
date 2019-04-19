@@ -1,52 +1,8 @@
 ﻿@{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<div class="random-persona">
-	<div v-if="loading === 'true'">Loading...</div>
-	<div class="persona-box" v-cloak>
-		<h2>{{random.name}}</h2>
-		<p>{{random.description}}</p>
-		<p>Level: {{random.level}}</p>
-		<ul class="stats">
-			<li v-for="(stat, statname) in random.stats">{{statname}}: {{stat}}</li>
-		</ul>
-		<div class="table-responsive-md">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th>Name</th>
-						<th>Effect</th>
-						<th>Power</th>
-						<th>Cost</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="item in random.skills">
-						<td>
-							{{item.elementName}}
-						</td>
-						<td>
-							{{item.skillName}}
-						</td>
-						<td>
-							{{item.effect}}
-						</td>
-						<td>
-							{{item.power}}
-						</td>
-						<td>
-							{{item.cost.amount}} {{item.cost.resource}}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

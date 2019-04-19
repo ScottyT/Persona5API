@@ -28,7 +28,7 @@ namespace Persona5API.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("stucker@persona5api.com", "Scott Tucker"),
+                From = new EmailAddress("stuck04@gmail.com", "Scott Tucker"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

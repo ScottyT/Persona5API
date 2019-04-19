@@ -12,6 +12,7 @@ using Persona5API.ViewModels;
 
 namespace Persona5Api.Controllers
 {
+    [Authorize]
     public class PersonaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,27 +23,9 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index()
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.ArcanaSortParam = sortOrder == "Arcana" ? "arcana_desc" : "Arcana";
-            var personas = await _context.Personas.Include(x => x.Stats).ToListAsync();
-            switch(sortOrder)
-            {
-                case "name_desc":
-                    personas = personas.OrderByDescending(p => p.Name).ToList();
-                    break;
-                case "Arcana":
-                    personas = personas.OrderBy(p => p.Arcana).ToList();
-                    break;
-                case "arcana_desc":
-                    personas = personas.OrderByDescending(p => p.Arcana).ToList();
-                    break;
-                default:
-                    personas = personas.OrderBy(p => p.Name).ToList();
-                    break;
-            }
-            return View(personas);
+            return View(await _context.Personas.Include(x => x.Stats).ToListAsync());
         }
 
         // GET: Persona/Details/5
@@ -54,36 +37,26 @@ namespace Persona5Api.Controllers
             }
 
             var persona = await _context.Personas
-                .Include(p => p.Stats)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (persona == null)
             {
                 return NotFound();
             }
-            var viewModel = new PersonaViewModel()
-            {
-                Persona = persona
-            };
-            return View(viewModel);
+
+            return View(persona);
         }
 
         // GET: Persona/Create
-        [Authorize]
         public async Task<IActionResult> Create()
         {
             var viewModel = new PersonaFormViewModels
             {
                 SelectSkillsId = new List<int>(),
-                SkillsList = await GetSkills(),
-                ResistElementsId = new List<int>(),
-                ResistList = await GetElements(),
-                WeakElementsId = new List<int>(),
-                WeakList = await GetElements()
+                SkillsList = await GetSkills()
             };
             try
             {
                 this.ViewBag.SkillsList = this.GetSkills();
-                this.ViewBag.ResistList = this.GetElements();
             }
             catch (Exception ex)
             {
@@ -97,8 +70,7 @@ namespace Persona5Api.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<ActionResult> Create(PersonaFormViewModels viewModel)
+        public async Task<IActionResult> Create(PersonaFormViewModels viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -106,16 +78,12 @@ namespace Persona5Api.Controllers
                 return View("Create", viewModel);
             }
             var skills = _context.PersonaSkills.Include(s => s.Element).Include(c => c.Cost).ToList();
-            var elements = _context.PersonaElements.ToList();
             var persona = new Persona
             {
                 Name = viewModel.Name,
                 Level = viewModel.Level,
                 Arcana = viewModel.Arcana,
-                Description = viewModel.Description,
                 Stats = viewModel.Stats,
-                ResistElements = elements.Where(e => viewModel.ResistElementsId.Contains(e.Id)).Select(x => x).ToList(),
-                WeakElements = elements.Where(e => viewModel.WeakElementsId.Contains(e.Id)).Select(x => x).ToList(),
                 Skills = skills.Where(s => viewModel.SelectSkillsId.Contains(s.Id)).Select(x => x).ToList()
             };
             _context.Personas.Add(persona);
@@ -124,22 +92,17 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona/Edit/5
-        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             var skills = await GetSkills();
-            var elements = await GetElements();
-            var persona = _context.Personas.FirstOrDefault(p => p.Id == id);
+            var persona = _context.Personas.Include(x => x.Skills).FirstOrDefault(p => p.Id == id);
             var currentSkillsId = persona.Skills.Select(c => c.Id).ToList();
             var viewModel = new PersonaFormViewModels
             {
                 Id = persona.Id,
                 Name = persona.Name,
                 Arcana = persona.Arcana,
-                Level = persona.Level,
-                Description = persona.Description,
-                ResistList = elements,
-                WeakList = elements,
+                Level = persona.Level,               
                 SkillsList = skills,
                 SelectSkillsId = currentSkillsId
             };
@@ -147,7 +110,12 @@ namespace Persona5Api.Controllers
             {
                 return NotFound();
             }
-           
+
+            //var persona = await _context.Personas.FindAsync(id);
+            //if (persona == null)
+            //{
+            //    return NotFound();
+            //}
             return View(viewModel);
         }
 
@@ -156,7 +124,6 @@ namespace Persona5Api.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> Edit(PersonaFormViewModels viewModel)
         {
             if (!ModelState.IsValid)
@@ -164,7 +131,6 @@ namespace Persona5Api.Controllers
                 return View("Edit", viewModel);
             }
             var skills = _context.PersonaSkills.Include(s => s.Element).Include(c => c.Cost).ToList();
-            var elements = _context.PersonaElements.ToList();
             var persona = await _context.Personas.FirstOrDefaultAsync(p => p.Id == viewModel.Id);
             if (persona != null)
             {
@@ -172,9 +138,6 @@ namespace Persona5Api.Controllers
                 persona.Level = viewModel.Level;
                 persona.Arcana = viewModel.Arcana;
                 persona.Stats = viewModel.Stats;
-                persona.Description = viewModel.Description;
-                persona.ResistElements = elements.Where(e => viewModel.ResistElementsId.Contains(e.Id)).Select(e => e).ToList();
-                persona.WeakElements = elements.Where(e => viewModel.WeakElementsId.Contains(e.Id)).Select(e => e).ToList();
                 persona.Skills = skills.Where(s => viewModel.SelectSkillsId.Contains(s.Id)).Select(s => s).ToList();
             }
             await _context.SaveChangesAsync();
@@ -182,7 +145,6 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona/Delete/5
-        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -203,30 +165,12 @@ namespace Persona5Api.Controllers
         // POST: Persona/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var persona = await _context.Personas.FindAsync(id);
             _context.Personas.Remove(persona);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private async Task<IEnumerable<SelectListItem>> GetElements()
-        {
-            List<SelectListItem> elements = await _context.PersonaElements.AsNoTracking()
-                .Select(e => new SelectListItem
-                {
-                    Value = e.Id.ToString(),
-                    Text = e.Name
-                }).ToListAsync();
-            var elementTip = new SelectListItem()
-            {
-                Value = null,
-                Text = "--- Select Element ---"
-            };
-            elements.Insert(0, elementTip);
-            return new SelectList(elements, "Value", "Text");
         }
 
         private async Task<IEnumerable<SelectListItem>> GetSkills()

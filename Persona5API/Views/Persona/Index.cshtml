@@ -14,13 +14,16 @@
     <thead>
 		<tr>
 			<th>
-				@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+				@Html.DisplayNameFor(model => model.Name)
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Level)
 			</th>
 			<th>
-				@Html.ActionLink("Arcana", "Index", new { sortOrder = ViewBag.ArcanaSortParam })
+				@Html.DisplayNameFor(model => model.Arcana)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SkillsJson)
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Stats.Strength)
@@ -51,6 +54,9 @@
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Arcana)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SkillsJson)
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Stats.Strength)

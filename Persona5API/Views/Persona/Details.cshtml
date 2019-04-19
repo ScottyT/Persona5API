@@ -1,127 +1,43 @@
-﻿@model Persona5API.ViewModels.PersonaViewModel
+﻿@model Persona5API.Models.Persona
 
 @{
-	ViewData["Title"] = "Details";
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	
-	var weakElements = Model.Persona.WeakElements.Select(x => x.Name).ToList();
-	var resistElements = Model.Persona.ResistElements.Select(x => x.Name).ToList();	
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Details</h1>
 
 <div>
-	<p>"@Model.Persona.Description"</p>
-	<h2>@Model.Persona.Name (@Model.Persona.Level / @Model.Persona.Arcana)</h2>
-	<table class="table">
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.ResistElements)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.WeakElements)
-			</th>
-		</tr>
-		<tr>
-			<td>
-				@String.Join(", ", resistElements)
-			</td>
-
-			<td>				
-				@String.Join(", ", weakElements)
-			</td>
-
-		</tr>
-	</table>
-	<hr />
-
-	<h3>Skills</h3>
-	<table class="table">
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.PersonaSkill.Element)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.PersonaSkill.SkillName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.PersonaSkill.Effect)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.PersonaSkill.Power)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.PersonaSkill.Cost)
-			</th>
-		</tr>
-		@foreach (var skill in Model.Persona.Skills)
-		{
-			<tr>
-				<td>
-					@skill.ElementName
-				</td>
-				<td>
-					<a href="@Url.Action("Details", "Skill", new { id = skill.Id })">@skill.SkillName</a>
-				</td>
-				<td>
-					@skill.Effect
-				</td>
-				<td>
-					@skill.Power
-				</td>
-				@if (!string.IsNullOrEmpty(skill.CostAmount))
-				{
-					<td>@skill.CostAmount</td>
-				}
-				else
-				{
-					<td>-</td>
-				}
-			</tr>
-
-		}
-	</table>
-	<h3>Stats</h3>
-	<hr />
-	<table class="table">
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.Stats.Strength)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.Stats.Magic)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.Stats.Endurance)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.Stats.Agility)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Persona.Stats.Luck)
-			</th>
-		</tr>
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => modelItem.Persona.Stats.Strength)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => modelItem.Persona.Stats.Magic)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => modelItem.Persona.Stats.Endurance)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => modelItem.Persona.Stats.Agility)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => modelItem.Persona.Stats.Luck)
-			</td>
-		</tr>
-	</table>
-
+    <h4>Persona</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Arcana)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Arcana)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SkillsJson)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SkillsJson)
+        </dd>
+    </dl>
 </div>
 <div>
-	<a asp-action="Edit" asp-route-id="@Model.Persona.Id">Edit</a> |
-	<a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>
