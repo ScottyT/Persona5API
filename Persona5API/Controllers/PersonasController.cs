@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Persona5API.Models;
 using Persona5API.Data;
 using Microsoft.AspNetCore.Http;
+using Persona5API.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,46 +17,49 @@ namespace Persona5Api.Controllers
     [ApiController]
     public class PersonasController : ControllerBase
     {
-        private readonly ApplicationDbContext _ctx;
+        //private readonly ApplicationDbContext _ctx;
+        private readonly PersonaService _ctx;
 
-        public PersonasController(ApplicationDbContext ctx)
+        public PersonasController(PersonaService ctx)
         {
             _ctx = ctx;
-            if (_ctx.Personas.Count() == 0)
-            {
-                _ctx.Personas.Add(new Persona { Name = "Arsene", Arcana = "Fool", Level = 1 });
-                _ctx.SaveChanges();
-            }
+            //if (_ctx.Personas.Count() == 0)
+            //{
+            //    _ctx.Personas.Add(new Persona { Name = "Arsene", Arcana = "Fool", Level = 1 });
+            //    _ctx.SaveChanges();
+            //}
         }
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<Persona>> Get()
+        public ActionResult<Persona> Get()
         {
-            return await _ctx.Personas.Include(x => x.Stats).ToListAsync();
+            //return await _ctx.Personas.Include(x => x.Stats).ToListAsync();
+            var personas = _ctx.AllIncluding(x => x.Stats);
+            return Ok(personas);
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Persona>> Get(int id)
+        public ActionResult<Persona> Get(int id)
         {
-            var persona = await _ctx.Personas.FindAsync(id);
+            var persona = _ctx.GetSingle(x => x.Id == id);
             if (persona == null)
             {
                 return NotFound();
             }
-            return persona;
+            return Ok(persona);
         }
 
-        //GET api/<controller>/random
-        [HttpGet("random", Name = "GetRandomPersona")]
-        public async Task<ActionResult<Persona>> GetRandomPersona()
-        {
-            var personas = await _ctx.Personas.Include(x => x.Stats).ToListAsync();
-            Random rand = new Random();
-            var persona = personas[rand.Next(personas.Count)];
-            return persona;
-        }
+        ////GET api/<controller>/random
+        //[HttpGet("random", Name = "GetRandomPersona")]
+        //public async Task<ActionResult<Persona>> GetRandomPersona()
+        //{
+        //    var personas = await _ctx.Personas.Include(x => x.Stats).ToListAsync();
+        //    Random rand = new Random();
+        //    var persona = personas[rand.Next(personas.Count)];
+        //    return persona;
+        //}
 
         // POST api/<controller>
         [HttpPost]

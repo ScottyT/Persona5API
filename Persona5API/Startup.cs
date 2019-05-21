@@ -52,6 +52,7 @@ namespace Persona5API
             // using Microsoft.AspNetCore.Identity.UI.Services;
             // using WebPWrecover.Services;
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IPersonaService, PersonaService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddCors(options =>
             {
