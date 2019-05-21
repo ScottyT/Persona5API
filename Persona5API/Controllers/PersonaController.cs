@@ -22,9 +22,27 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Personas.Include(x => x.Stats).ToListAsync());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ArcanaSortParam = sortOrder == "Arcana" ? "arcana_desc" : "Arcana";
+            var personas = await _context.Personas.Include(x => x.Stats).ToListAsync();
+            switch(sortOrder)
+            {
+                case "name_desc":
+                    personas = personas.OrderByDescending(p => p.Name).ToList();
+                    break;
+                case "Arcana":
+                    personas = personas.OrderBy(p => p.Arcana).ToList();
+                    break;
+                case "arcana_desc":
+                    personas = personas.OrderByDescending(p => p.Arcana).ToList();
+                    break;
+                default:
+                    personas = personas.OrderBy(p => p.Name).ToList();
+                    break;
+            }
+            return View(personas);
         }
 
         // GET: Persona/Details/5
@@ -94,6 +112,7 @@ namespace Persona5Api.Controllers
                 Name = viewModel.Name,
                 Level = viewModel.Level,
                 Arcana = viewModel.Arcana,
+                Description = viewModel.Description,
                 Stats = viewModel.Stats,
                 ResistElements = elements.Where(e => viewModel.ResistElementsId.Contains(e.Id)).Select(x => x).ToList(),
                 WeakElements = elements.Where(e => viewModel.WeakElementsId.Contains(e.Id)).Select(x => x).ToList(),
