@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persona5API.Migrations
 {
-    public partial class CreateDatabase : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -207,6 +207,7 @@ namespace Persona5API.Migrations
                     Level = table.Column<int>(nullable: false),
                     Arcana = table.Column<string>(nullable: true),
                     StatsId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     SkillsJson = table.Column<string>(nullable: true),
                     ResistJson = table.Column<string>(nullable: true),
                     WeakJson = table.Column<string>(nullable: true)

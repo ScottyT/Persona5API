@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Persona5API.Data;
 using Persona5API.Models;
+using Persona5API.Services;
 using Persona5API.ViewModels;
 
 namespace Persona5Api.Controllers
@@ -15,6 +16,7 @@ namespace Persona5Api.Controllers
     public class PersonaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        //private readonly IPersonaService _ctx;
 
         public PersonaController(ApplicationDbContext context)
         {
@@ -22,11 +24,11 @@ namespace Persona5Api.Controllers
         }
 
         // GET: Persona
-        public async Task<IActionResult> Index(string sortOrder)
+        public IActionResult Index(string sortOrder)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ArcanaSortParam = sortOrder == "Arcana" ? "arcana_desc" : "Arcana";
-            var personas = await _context.Personas.Include(x => x.Stats).ToListAsync();
+            var personas = _context.Personas.Include(x => x.Stats).ToList();
             switch(sortOrder)
             {
                 case "name_desc":

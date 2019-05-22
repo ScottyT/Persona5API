@@ -9,7 +9,7 @@ namespace Persona5API.Services
 {
     public interface IPersonaService
     {
-        IEnumerable<Persona> GetAll();
+        Task<List<Persona>> GetAll();
         IEnumerable<Persona> AllIncluding(params Expression<Func<Persona, object>>[] includeProperties);
         Persona GetSingle(Expression<Func<Persona, bool>> predicate);
     }

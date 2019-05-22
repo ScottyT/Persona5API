@@ -21,21 +21,24 @@ namespace Persona5API.Services
         public IEnumerable<Persona> AllIncluding(params Expression<Func<Persona, object>>[] includeProperties)
         {
             IQueryable<Persona> query = _context.Set<Persona>();
-            foreach(var includeProperty in includeProperties)
+            foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }
             return query.ToList();
+            //throw new NotImplementedException();
         }
 
-        public IEnumerable<Persona> GetAll()
+        public Task<List<Persona>> GetAll()
         {
-            return _context.Set<Persona>().AsEnumerable();
+            return _context.Set<Persona>().ToListAsync();
+            //throw new NotImplementedException();
         }
 
         public Persona GetSingle(System.Linq.Expressions.Expression<Func<Persona, bool>> predicate)
         {
             return _context.Set<Persona>().FirstOrDefault(predicate);
+            //throw new NotImplementedException();
         }
     }
 }

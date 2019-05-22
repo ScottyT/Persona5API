@@ -18,9 +18,9 @@ namespace Persona5Api.Controllers
     public class PersonasController : ControllerBase
     {
         //private readonly ApplicationDbContext _ctx;
-        private readonly PersonaService _ctx;
+        private readonly IPersonaService _ctx;
 
-        public PersonasController(PersonaService ctx)
+        public PersonasController(IPersonaService ctx)
         {
             _ctx = ctx;
             //if (_ctx.Personas.Count() == 0)
@@ -31,7 +31,7 @@ namespace Persona5Api.Controllers
         }
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<Persona> Get()
+        public ActionResult<IEnumerable<Persona>> Get()
         {
             //return await _ctx.Personas.Include(x => x.Stats).ToListAsync();
             var personas = _ctx.AllIncluding(x => x.Stats);

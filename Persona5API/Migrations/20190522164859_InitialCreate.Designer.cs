@@ -10,8 +10,8 @@ using Persona5API.Data;
 namespace Persona5API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190411201135_AddedDescription")]
-    partial class AddedDescription
+    [Migration("20190522164859_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
