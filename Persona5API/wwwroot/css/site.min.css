@@ -9079,7 +9079,8 @@ body {
 
 .persona-form {
   max-width: 990px;
-  margin: auto; }
+  margin: auto;
+  @__element {}  @--modifier {} }
 
 .random-persona {
   display: flex;

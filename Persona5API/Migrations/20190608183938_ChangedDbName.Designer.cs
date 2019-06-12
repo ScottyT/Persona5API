@@ -10,14 +10,14 @@ using Persona5API.Data;
 namespace Persona5API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190410162156_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20190608183938_ChangedDbName")]
+    partial class ChangedDbName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -206,6 +206,8 @@ namespace Persona5API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Arcana");
+
+                    b.Property<string>("Description");
 
                     b.Property<int>("Level");
 
