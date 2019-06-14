@@ -49,6 +49,10 @@ html {
 	min-height: 100%;
 }
 
+ul {
+    list-style:none;
+}
+
 body {
 	/* Margin bottom by footer height */
 	margin-bottom: 60px;
@@ -58,6 +62,13 @@ body {
 
 .main {
     padding: 30px;
+}
+
+.btn {
+    &:link, :visited {
+        text-decoration: none;
+        display: inline-block;
+    }
 }
 
 .footer {
@@ -83,14 +94,77 @@ body {
     position: relative;
     clip-path: polygon(0 0, 100% 3vh, 100% 80vh, 0 100%);
 }
-
+.btn {
+    outline:0;
+}
+a {
+    &.btn:focus {
+        outline: 0;
+        box-shadow:none;
+    }
+}
 .text-box {
-    position:absolute;
-    top:40%;
-    left:50%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+
     .text-center {
-        text-transform:uppercase;
+        text-transform: uppercase;
+        margin-bottom: 60px;
+    }
+
+    .btn {
+
+        &:link, &:visited {
+            text-transform: uppercase;
+            padding: 15px 40px;
+            border-radius: 100px;
+            transition: all .2s;
+            outline: 0;
+            position: relative;
+        }
+
+        &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            outline: 0;
+        }
+
+        &::after {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            border-radius: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: all .4s;
+        }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            color: #777;
+
+            &::after {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.btn-white {
+    background-color:white;
+    color:#777;
+    backface-visibility:hidden;
+
+    &::after {
+        background-color:white;
     }
 }
 
@@ -100,6 +174,7 @@ body {
     font-weight:400;
     letter-spacing:30px;
     color:white;
+    animation: moveInRight 1s ease-in-out;
 }
 
 .sub-heading {
@@ -108,11 +183,13 @@ body {
     font-weight:700;
     letter-spacing:13px;
     color:white;
+    animation: moveInLeft 1s ease-in-out;
 }
 
 .random-persona {
 	display:flex;
 	justify-content:center;
+    padding:30px;
 
 	.persona-box {
 		&[v-cloak] {

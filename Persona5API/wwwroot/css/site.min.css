@@ -9068,6 +9068,9 @@ html {
   position: relative;
   min-height: 100%; }
 
+ul {
+  list-style: none; }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -9076,6 +9079,10 @@ body {
 
 .main {
   padding: 30px; }
+
+.btn:link, .btn :visited {
+  text-decoration: none;
+  display: inline-block; }
 
 .footer {
   position: absolute;
@@ -9099,31 +9106,79 @@ body {
   position: relative;
   clip-path: polygon(0 0, 100% 3vh, 100% 80vh, 0 100%); }
 
+.btn {
+  outline: 0; }
+
+a.btn:focus {
+  outline: 0;
+  box-shadow: none; }
+
 .text-box {
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  text-align: center; }
   .text-box .text-center {
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    margin-bottom: 60px; }
+  .text-box .btn:link, .text-box .btn:visited {
+    text-transform: uppercase;
+    padding: 15px 40px;
+    border-radius: 100px;
+    transition: all .2s;
+    outline: 0;
+    position: relative; }
+  .text-box .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    outline: 0; }
+  .text-box .btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s; }
+  .text-box .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    color: #777; }
+    .text-box .btn:hover::after {
+      transform: scale(1.5);
+      opacity: 0; }
+
+.btn-white {
+  background-color: white;
+  color: #777;
+  backface-visibility: hidden; }
+  .btn-white::after {
+    background-color: white; }
 
 .main-heading {
   display: block;
   font-size: 60px;
   font-weight: 400;
   letter-spacing: 30px;
-  color: white; }
+  color: white;
+  animation: moveInRight 1s ease-in-out; }
 
 .sub-heading {
   display: block;
   font-size: 25px;
   font-weight: 700;
   letter-spacing: 13px;
-  color: white; }
+  color: white;
+  animation: moveInLeft 1s ease-in-out; }
 
 .random-persona {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  padding: 30px; }
   .random-persona .persona-box[v-cloak] {
     display: none; }
   @media screen and (max-width: 480px) {

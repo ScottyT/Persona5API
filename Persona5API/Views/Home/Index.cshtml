@@ -7,6 +7,7 @@
             <h1 class="main-heading">Welcome</h1>
             <h2 class="sub-heading">Find your favorite Persona</h2>
         </div>
+        <a href="#" class="btn btn-white">View a random Persona</a>
     </div>
 </div>
 
@@ -19,7 +20,7 @@
         <p>{{random.description}}</p>
         <p>Level: {{random.level}}</p>
         <ul class="stats">
-            <li v-for="(stat, statname) in random.stats">{{statname}}: {{stat}}</li>
+            <li v-for="(stat, statname) in random.stats">{{statname | uppercase}} - {{stat}}</li>
         </ul>
         <div class="table-responsive-md">
             <table class="table">
