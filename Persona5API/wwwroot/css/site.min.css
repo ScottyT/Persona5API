@@ -9035,6 +9035,11 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all; }
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -9065,7 +9070,12 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px; }
+  margin-bottom: 60px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400; }
+
+.main {
+  padding: 30px; }
 
 .footer {
   position: absolute;
@@ -9079,8 +9089,37 @@ body {
 
 .persona-form {
   max-width: 990px;
-  margin: auto;
-  @__element {}  @--modifier {} }
+  margin: auto; }
+
+.home-header {
+  height: 90vh;
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.61), rgba(191, 80, 80, 0.82)), url(../img/final-smash.jpg);
+  background-size: cover;
+  background-position: top;
+  position: relative;
+  clip-path: polygon(0 0, 100% 3vh, 100% 80vh, 0 100%); }
+
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .text-box .text-center {
+    text-transform: uppercase; }
+
+.main-heading {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 30px;
+  color: white; }
+
+.sub-heading {
+  display: block;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 13px;
+  color: white; }
 
 .random-persona {
   display: flex;
@@ -9090,3 +9129,24 @@ body {
   @media screen and (max-width: 480px) {
     .random-persona .persona-box table {
       font-size: 12px; } }
+
+/* Animation */
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px); }
+  80% {
+    transform: translateX(20px); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px); }
+  80% {
+    transform: translateX(-20px); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
