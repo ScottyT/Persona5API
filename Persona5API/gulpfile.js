@@ -31,7 +31,8 @@ gulp.task("scss", () => {
 });
 
 var jsFiles = [
-	vendorDir + "jquery/dist/jquery.js",
+    vendorDir + "jquery/dist/jquery.js",
+    vendorDir + "jqueryui/jquery-ui.min.js",
 	vendorDir + "jquery-validation/dist/jquery.validate.js",
 	vendorDir + "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
 	vendorDir + "vue/vue.min.js",

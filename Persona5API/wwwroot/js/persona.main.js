@@ -12,7 +12,8 @@ persona.main = (function ($) {
 		init: function () {
 
 			this.skillSelectList();
-			this.randomPersonas();
+            this.randomPersonas();
+            this.scrollTo();
 		},
 		skillSelectList: function () {
 			// Enable live search
@@ -66,7 +67,19 @@ persona.main = (function ($) {
                     }
                 }
 			});
-		}
+        },
+
+        scrollTo: function () {
+            var page = $('html, body');
+            $("a.btn-scroll").on("click", function (e) {
+                page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function () {
+                    page.stop();
+                });
+                page.animate({
+                    scrollTop: $('.scroll-to').offset().top
+                }, 1500, 'easeInOutQuad');                
+            });
+        }
 	};
 	return main;
 })(jQuery);

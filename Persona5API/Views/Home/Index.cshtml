@@ -7,13 +7,13 @@
             <h1 class="main-heading">Welcome</h1>
             <h2 class="sub-heading">Find your favorite Persona</h2>
         </div>
-        <a href="#" class="btn btn-white">View a random Persona</a>
+        <a href="#" class="btn btn-white btn-scroll">View a random Persona</a>
     </div>
 </div>
 
 
 
-<div class="random-persona container">
+<div class="random-persona container scroll-to">
     <div v-if="loading === 'true'">Loading...</div>
     <div class="persona-box" v-cloak>
         <h2>{{random.name}}</h2>
