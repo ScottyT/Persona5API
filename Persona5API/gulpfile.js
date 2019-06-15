@@ -44,14 +44,14 @@ var jsFiles = [
 
 gulp.task("js", function() {
 	return gulp.src(jsFiles)
-		.pipe(concat("site.min.js"))
-		.pipe(terser())
+		.pipe(concat("site.js"))
+	
 		.pipe(gulp.dest(scriptsDir));
 });
 
-gulp.task("watch", () => {
-	gulp.watch([scriptsDir + "*.js", "!" + scriptsDir + "site.min.js"], ["js"]);
-	gulp.watch(stylesDir + "*.scss", ["scss"]);
+gulp.task('watch', () => {
+	gulp.watch([scriptsDir + "*.js", "!" + scriptsDir + "site.js"], gulp.series("js"));
+    gulp.watch(stylesDir + "*.scss", gulp.series("scss"));
 });
 
 gulp.task('default', gulp.series["scss", "js"]);

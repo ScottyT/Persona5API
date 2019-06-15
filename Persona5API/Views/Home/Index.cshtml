@@ -17,11 +17,40 @@
     <div v-if="loading === 'true'">Loading...</div>
     <div class="persona-box" v-cloak>
         <h2>{{random.name}}</h2>
-        <p>{{random.description}}</p>
-        <p>Level: {{random.level}}</p>
-        <ul class="stats">
-            <li v-for="(stat, statname) in random.stats">{{statname | uppercase}} - {{stat}}</li>
-        </ul>
+        <p class="description">{{random.description}}</p>
+        <div class="section-row">
+            <div class="section col-4">
+                <p class="info-name">Arcana</p>
+                <p class="arcana">{{random.arcana}}</p>
+            </div>
+            <div class="section col-2">
+                <p class="info-name">Level</p>
+                <p class="level">{{random.level}}</p>
+            </div>
+            <div class="section col-6">
+                <div class="stats">
+                    <div class="statname">
+                        <p>Strength</p>
+                        <p>Magic</p>
+                        <p>Endurance</p>
+                        <p>Agility</p>
+                        <p>Luck</p>
+                        
+
+                    </div>
+                    <div class="stat">
+                        <p v-for="(stat, statname) in random.stats">
+                            {{stat}}
+                            @*<div class="progress-bar" v-for="(stat, statname) in random.stats">
+                                <div style="width:10px" class="progress"></div>
+                            </div>*@
+                            <progress max="100" v-bind:value="stat">{{stat}}%</progress>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="table-responsive-md">
             <table class="table">
                 <thead>

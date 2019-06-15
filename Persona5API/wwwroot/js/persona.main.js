@@ -64,6 +64,11 @@ persona.main = (function ($) {
                         if (!value) return ''
                         value = value.toString()
                         return value.charAt(0).toUpperCase() + value.slice(1)
+                    },
+                    toString: function (value) {
+                        if (!value) return ''
+                        value = value.toString()
+                        return value
                     }
                 }
 			});
@@ -77,7 +82,7 @@ persona.main = (function ($) {
                 });
                 page.animate({
                     scrollTop: $('.scroll-to').offset().top
-                }, 1500, 'easeInOutQuad');                
+                }, 1500, 'easeInOutQuad');
             });
         }
 	};

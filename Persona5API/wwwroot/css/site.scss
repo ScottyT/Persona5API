@@ -1,5 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/* Colors */
+$red: #bf0002;
 
 a.navbar-brand {
 	white-space: normal;
@@ -187,21 +189,76 @@ a {
 }
 
 .random-persona {
-	display:flex;
-	justify-content:center;
-    padding:30px;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
 
-	.persona-box {
-		&[v-cloak] {
-			display:none;
-		}
+    .persona-box {
+        border-radius: 10px;
+        border: 2px solid $red;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.21);
+        overflow: auto;
+        color: white;
+        background-color: #5a5a5a;
 
-		table {
-			@media screen and (max-width: 480px) {
-				font-size:12px;
-			}
-		}
-	}
+        .section-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+        }
+
+        .section {
+            padding-left: 2px;
+            padding-right: 2px;
+            text-align: center;
+        }
+
+        .stats {
+            display: flex;
+
+            p {
+                margin: 0;
+            }
+            
+        }
+
+        .info-name {
+            background-color: $red;
+            border-radius: 4px;
+            padding: 4px 10px;
+            text-align: center;
+            margin: 0;
+        }
+
+        h2 {
+            background-color: black;
+            padding: 10px 20px;
+            margin: 0;
+        }
+
+        .description {
+            padding: 10px 20px;
+            font-size: 13px;
+            background-color: black;
+            color: white;
+            margin-bottom: 2px;
+
+            &::before, &::after {
+                content: '"';
+                display: inline-block;
+            }
+        }
+
+        &[v-cloak] {
+            display: none;
+        }
+
+        table {
+            @media screen and (max-width: 480px) {
+                font-size: 12px;
+            }
+        }
+    }
 }
 
 
