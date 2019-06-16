@@ -3,6 +3,8 @@ for details on configuring this project to bundle and minify static web assets. 
 /* Colors */
 $red: #bf0002;
 
+/* Mixins */
+
 a.navbar-brand {
 	white-space: normal;
 	text-align: center;
@@ -21,7 +23,7 @@ html {
 	font-size: 14px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 991px) {
 	html {
 		font-size: 16px;
 	}
@@ -193,6 +195,10 @@ a {
     justify-content: center;
     padding: 30px;
 
+    p {
+        margin-bottom: 0;
+    }
+
     .persona-box {
         border-radius: 10px;
         border: 2px solid $red;
@@ -213,13 +219,13 @@ a {
             text-align: center;
         }
 
-        .stats {
-            display: flex;
+        .info-wrapper {
+            padding-bottom: 2px;
+        }
 
-            p {
-                margin: 0;
-            }
-            
+        .info-data {
+            display: inline-block;
+            padding: 2px;
         }
 
         .info-name {
@@ -228,6 +234,34 @@ a {
             padding: 4px 10px;
             text-align: center;
             margin: 0;
+        }
+
+        .stats {
+            display: flex;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .stat {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+            text-align: right;
+        }
+
+        progress {
+            background-color: black;
+            width: 90%;
+
+            &::-webkit-progress-value {
+                background: $red;
+            }
+
+            &::-moz-progress-bar {
+                background: $red;
+            }
         }
 
         h2 {

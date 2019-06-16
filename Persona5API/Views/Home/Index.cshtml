@@ -20,12 +20,24 @@
         <p class="description">{{random.description}}</p>
         <div class="section-row">
             <div class="section col-4">
-                <p class="info-name">Arcana</p>
-                <p class="arcana">{{random.arcana}}</p>
+                <div class="info-wrapper">
+                    <p class="info-name">Arcana</p>
+                    <p class="info-data">{{random.arcana}}</p>
+                </div>
+                <div class="info-wrapper">
+                    <p class="info-name">Resist Elements</p>
+                    <p class="info-data" v-for="elm in random.resistElements">{{elm.name}}</p>
+                </div>
             </div>
             <div class="section col-2">
-                <p class="info-name">Level</p>
-                <p class="level">{{random.level}}</p>
+                <div class="info-wrapper">
+                    <p class="info-name">Level</p>
+                    <p class="info-data">{{random.level}}</p>
+                </div>
+                <div class="info-wrapper">
+                    <p class="info-name">Weak Elements</p>
+                    <p class="info-data" v-for="elm in random.weakElements">{{elm.name}}</p>
+                </div>
             </div>
             <div class="section col-6">
                 <div class="stats">
@@ -35,20 +47,21 @@
                         <p>Endurance</p>
                         <p>Agility</p>
                         <p>Luck</p>
-                        
+
 
                     </div>
                     <div class="stat">
                         <p v-for="(stat, statname) in random.stats">
                             {{stat}}
                             @*<div class="progress-bar" v-for="(stat, statname) in random.stats">
-                                <div style="width:10px" class="progress"></div>
-                            </div>*@
+                            <div style="width:10px" class="progress"></div>
+                        </div>*@
                             <progress max="100" v-bind:value="stat">{{stat}}%</progress>
                         </p>
                     </div>
                 </div>
             </div>
+            
         </div>
         
         <div class="table-responsive-md">
